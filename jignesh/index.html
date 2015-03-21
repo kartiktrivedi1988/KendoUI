@@ -1,51 +1,141 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <title></title>
-    <meta charset="utf-8" />
-    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
-    <link href="styles/main.css" rel="stylesheet" />
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Carousel Demo</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.waterwheelCarousel.js"></script>
+      <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        
+        var carousel = $("#carousel").waterwheelCarousel({            
+          flankingItems: 3,
+          movingToCenter: function ($item) {
+            $('#callback-output').prepend('movingToCenter: ' + $item.attr('id') + '<br/>');
+          },
+          movedToCenter: function ($item) {
+            $('#callback-output').prepend('movedToCenter: ' + $item.attr('id') + '<br/>');
+          },
+          movingFromCenter: function ($item) {
+            $('#callback-output').prepend('movingFromCenter: ' + $item.attr('id') + '<br/>');
+          },
+          movedFromCenter: function ($item) {
+            $('#callback-output').prepend('movedFromCenter: ' + $item.attr('id') + '<br/>');
+          },
+          clickedCenter: function ($item) {
+            $('#callback-output').prepend('clickedCenter: ' + $item.attr('id') + '<br/>');
+          }
+        });
 
-    <script src="cordova.js"></script>
-    <script src="kendo/js/jquery.min.js"></script>
-    <script src="kendo/js/kendo.mobile.min.js"></script>
+        $('#prev').bind('click', function () {
+          carousel.prev();
+          return false;
+        });
 
-    <script src="scripts/app.js"></script>
+        $('#next').bind('click', function () {
+		
+          carousel.next();
+          return false;
+        });
 
-</head>
-<body>
- 
-  <div data-role="layout" data-id="main">
-    <div data-role="header">
-      <div data-role="navbar">
-        <span data-role="view-title"></span>
-        <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
+        $('#reload').bind('click', function () {
+          this.newOptions = eval("(" + $('#newoptions').val() + ")");
+          carousel.reload(this.newOptions);
+          return false;
+        });
+      });
+        
+        
+    </script>
+
+    <style type="text/css">
+      body {
+        font-family:Arial;
+        font-size:12px;
+        background:#ededed;
+      }
+      .example-desc {
+        margin:3px 0;
+        padding:5px;
+      }
+
+      #carousel {
+        width:300px;
+        border:1px solid #222;
+        height:300px;
+        position:relative;
+        clear:both;
+        background:#FFF;
+      }
+      #carousel img {
+        visibility:hidden; /* hide images until carousel can handle them */
+        cursor:hand; /* otherwise it's not as obvious items can be clicked */
+      }
+
+      .split-left {
+        width:100px;
+        float:left;
+      }
+      .split-right {
+        width:100px;
+        float:left;
+        margin-left:10px;
+      }
+      #callback-output {
+        height:250px;
+      }
+      textarea#newoptions {
+        width:40px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Carousel Demo</h1>
+    <div id="carousel" >
+      <a href="#"><img src="icons/img1.jpg" id="item-1" width="300px" /></a>
+      <a href="#"><img src="icons/img2.jpg" id="item-2" width="300px"/></a>
+      <a href="#"><img src="icons/img3.jpg" id="item-3" width="300px"/></a>
+      <a href="#"><img src="icons/img4.jpg" id="item-4" width="300px"/></a>
+      <a href="#"><img src="icons/img5.jpg" id="item-5" width="300px"/></a>
+      <a href="#"><img src="icons/img6.jpg" id="item-6" width="300px"/></a>
+      <a href="#"><img src="icons/img7.jpg" id="item-7" width="300px"/></a>
+      <a href="#"><img src="icons/img8.jpg" id="item-8" width="300px"/></a>
+      <a href="#"><img src="icons/img9.jpg" id="item-9" width="300px"/></a>
+      </div>
+    <a href="#" id="prev">Prev</a> | <a href="#" id="next">Next</a>
+
+    <br/>
+
+    <div class="split-left">
+      <a href="#" id="reload" class="creload">Reload New Options</a>
+      <textarea id="newoptions" rows="15" style="display:none;">
+{
+  flankingItems: 3,
+  movingToCenter: function ($item) {
+    $('#callback-output').prepend('movingToCenter: ' + $item.attr('id') + '<br/>');
+  },
+  movedToCenter: function ($item) {
+    $('#callback-output').prepend('movedToCenter: ' + $item.attr('id') + '<br/>');
+  },
+  movingFromCenter: function ($item) {
+    $('#callback-output').prepend('movingFromCenter: ' + $item.attr('id') + '<br/>');
+  },
+  movedFromCenter: function ($item) {
+    $('#callback-output').prepend('movedFromCenter: ' + $item.attr('id') + '<br/>');
+  },
+  clickedCenter: function ($item) {
+    $('#callback-output').prepend('clickedCenter: ' + $item.attr('id') + '<br/>');
+  }
+}
+      </textarea><br/>
+    </div>
+    <div class="split-right"style="display:none;">
+      <h2>Sample callback output</h2>
+      <div id="callback-output">
+
       </div>
     </div>
 
-    <!-- application views will be rendered here -->
-    
-  </div>
-
-  <!-- application drawer and contents -->
-  <div data-role="drawer" id="appDrawer" style="width: 270px" data-title="Navigation">
-    <div data-role="header">
-      <div data-role="navbar">
-        <span data-role="view-title"></span>
-      </div>
-    </div>
-    <ul data-role="listview">
-      <li>
-        <a href="views/home.html">Home</a>
-      </li>
-      <li>
-        <a href="views/settings.html">Settings</a>
-      </li>
-      <li>
-        <a href="views/contacts.html">Contacts</a>
-      </li>
-    </ul>
-  </div>       
-
-</body>
+  </body>
 </html>

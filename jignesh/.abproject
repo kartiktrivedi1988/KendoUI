@@ -3,9 +3,9 @@
   "ProjectGuid": "491255b7-f8db-46ce-802f-9f70eac8f549",
   "projectVersion": 1,
   "AppIdentifier": "com.telerik.jignesh",
-  "DisplayName": "jignesh",
+  "DisplayName": "Carsousel Demo",
   "Author": "",
-  "Description": "",
+  "Description": "Sample application",
   "BundleVersion": "1.0",
   "AndroidVersionCode": "1",
   "iOSDeviceFamily": [
@@ -34,5 +34,7 @@
     "ID_RESOLUTION_WVGA",
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
-  ]
+  ],
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8PackageIdentityName": "1234Telerik.com.telerik.jignesh"
 }
